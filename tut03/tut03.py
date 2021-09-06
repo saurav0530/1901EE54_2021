@@ -1,5 +1,13 @@
 import os
 os.system("cls")
+try:
+    os.mkdir("output_by_subject")
+except FileExistsError:
+    pass
+try:
+    os.mkdir("output_individual_roll")
+except FileExistsError:
+    pass
 
 # Function which sets headers and data of each file of each folder
 def addDataToCorrespFile(type,name,data,methods):
