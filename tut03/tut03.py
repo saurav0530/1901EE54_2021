@@ -10,6 +10,7 @@ except FileExistsError:
     pass
 
 # Function which sets headers and data of each file of each folder
+checkForSchema=0
 def addDataToCorrespFile(type,name,data,methods):
     check=0
     if(type==1):
@@ -26,7 +27,11 @@ def addDataToCorrespFile(type,name,data,methods):
 
 # Function which extracts the number of unique students and subjects and creates blank file for each
 # and sets headers of each file
-def setSchema_for_each_file_of_both_folder():
+def setSchema_for_each_file():
+    global checkForSchema
+    if(checkForSchema==1):
+        return
+    checkForSchema=1
     f=open('regtable_old.csv', 'r')
     uniqueRoll = set()
     uniqueSubject = set()
@@ -42,8 +47,21 @@ def setSchema_for_each_file_of_both_folder():
         addDataToCorrespFile(2,i,results,"w")       # Sets headers of each file of output_by_subject
     f.close()
 
+
 # Function which extracts data from given csv file and add it to corresponding file of corresponding folder
-def add_data_to_each_file_of_both_folder():
+def output_by_subject():
+    setSchema_for_each_file()
+    f=open('regtable_old.csv', 'r')
+    for data in f:
+        studentData = data.split(',');
+        if(studentData[0]=="rollno"):
+            continue
+        results = [studentData[0],studentData[1],studentData[3],studentData[8]]
+        addDataToCorrespFile(2,results[2],results,"a")      # adds data of each file of output_by_subject
+    f.close()
+
+def output_individual_roll():
+    setSchema_for_each_file()
     f=open('regtable_old.csv', 'r')
     for data in f:
         studentData = data.split(',');
@@ -51,10 +69,8 @@ def add_data_to_each_file_of_both_folder():
             continue
         results = [studentData[0],studentData[1],studentData[3],studentData[8]]
         addDataToCorrespFile(1,results[0],results,"a")      # adds data of each file of output_individual_roll
-        addDataToCorrespFile(2,results[2],results,"a")      # adds data of each file of output_by_subject
     f.close()
 
-
 # Function call made
-setSchema_for_each_file_of_both_folder()
-add_data_to_each_file_of_both_folder()
+output_by_subject()
+output_individual_roll()
