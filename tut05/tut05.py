@@ -1,5 +1,6 @@
 import os
 import csv
+import shutil
 from openpyxl import load_workbook, Workbook
 os.system("cls")
 
@@ -7,6 +8,8 @@ os.system("cls")
 try:
     os.mkdir("./output")
 except FileExistsError:
+    shutil.rmtree("./output")
+    os.mkdir("./output")
     pass
 
 # Grade to pointer relation dictionary declaration
@@ -80,8 +83,16 @@ def calculate_grade(filename):
     cumulative_credit_array = [0]
     cpi_array = [0]
 
+    # filling semester number lists data
+    for ws in wb.worksheets:
+        if(ws.title=='Sheet'):
+            continue
+        semester_array.append((int)(ws.title.split('m')[1]))
+
     # filling all lists data
-    for i in range(1,number_of_sheets):
+    for i in semester_array:
+        if i=='Semester No.':
+            continue
         ws=wb['Sem'+str(i)]
         credits=0
         prod=1
@@ -91,16 +102,15 @@ def calculate_grade(filename):
         spi = prod
         credits_array.append(credits)
         spi_array.append(spi)
-        cumulative_credit_array.append(cumulative_credit_array[i-1]+credits)
+        cumulative_credit_array.append(cumulative_credit_array[-1]+credits)
     for i in range(1,number_of_sheets):
-        temp=0;
+        temp=0
         for j in range(1,i+1):
             temp += (int)(spi_array[j])
         cpi_array.append(temp)
     for i in range(1,number_of_sheets):
         spi_array[i]= (float)("{0:.2f}".format(((spi_array[i]*100)/credits_array[i])*0.01))
         cpi_array[i] = (float)("{0:.2f}".format(((cpi_array[i]*100)/cumulative_credit_array[i])*0.01))
-        semester_array.append(i)
     
     # Modifying each lists base index with its description name
     credits_array[0]='Semester Wise Credit Taken'
