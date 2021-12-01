@@ -1,6 +1,8 @@
 # **FRONTEND**
 ***
-> Preview: &emsp; [PROJECTS_1901EE54](https://projects1901ee54.netlify.app/)
+> Preview: &emsp; [PROJECTS_1901EE54](https://projects1901ee54.netlify.app/) <br/>
+> Youtube video link: [YOUTUBE](https://youtu.be/YWeG__pM3_w)<br/>
+> Diagram for the flow of data: [DIAGRAM](https://drive.google.com/file/d/1SEa-MSSLklAIfgE8nb4EOt79lEghE6T7/view?usp=sharing)<br/>
 ***
 ## Description:
 * Common frontend for both Project-1 and Project-2.
@@ -21,6 +23,8 @@
 * Server for Project-1 will be up at port 4000 and server for Project-2 will be up at port 5000 in local environment. 
 
 ---
+<br/>
+
 ***
 # **BACKEND**
 
@@ -40,6 +44,7 @@
 * Server will be up at PORT 4000. Server is ready to be used.
 
 ---
+<br/>
 
 
 Developer: 
